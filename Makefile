@@ -4,32 +4,34 @@ all: add
 
 add:
 	@zip redbean.com \
-		.init.lua \
-		.reload.lua \
+		.init.lua .reload.lua \
 		.lua/fullmoon.lua \
 		.lua/haggis.lua
 rm:
 	@zip -d redbean.com \
-		.init.lua \
-		.reload.lua \
+		.init.lua .reload.lua \
 		.lua/fullmoon.lua \
 		.lua/haggis.lua
 ls:
 	@unzip -vl redbean.com | grep -v \
 		'usr/\|.symtab\|help.txt\|redbean.png\|favicon.ico'
 
-run:
-	./redbean.com
+start:
+	./redbean.com -vv
 
-run-daemon:
-	./redbean.com -vv -d -L redbean.log -P redbean.pid
+start-daemon:
+	@(test ! -f redbean.pid && \
+		./redbean.com -vv -d -L redbean.log -P redbean.pid && \
+		echo started $$(cat redbean.pid)) \
+		|| echo "$$(cat redbean.pid) - redbean already running"
 
 restart-daemon: redbean.pid
 	@kill -HUP $$(cat redbean.pid)
 
 stop-daemon: redbean.pid
-	@kill -TERM $$(cat redbean.pid)
-	@echo kill -TERM $$(cat redbean.pid)
+	@kill -TERM $$(cat redbean.pid) && \
+		echo stopped $$(cat redbean.pid) && \
+		rm redbean.pid \
 
 clean: redbean.log redbean.pid
 	rm redbean.log redbean.pid
