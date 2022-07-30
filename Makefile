@@ -25,8 +25,7 @@ run-daemon:
 	./redbean.com -vv -d -L redbean.log -P redbean.pid
 
 restart-daemon: redbean.pid
-	@kill -1 $$(cat redbean.pid)
-	@echo kill -1 $$(cat redbean.pid)
+	@kill -HUP $$(cat redbean.pid)
 
 stop-daemon: redbean.pid
 	@kill -TERM $$(cat redbean.pid)
