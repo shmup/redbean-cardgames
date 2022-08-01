@@ -2,38 +2,47 @@
 
 all: add
 
-add:
+redbean.com:
+	curl https://redbean.dev/redbean-latest.com >redbean.com
+	chmod +x redbean.com
+
+add: redbean.com
 	@zip redbean.com \
 		.init.lua .reload.lua \
-		.lua/fullmoon.lua \
-		.lua/haggis.lua
-rm:
+		.lua/* \
+		static/* \
+		404.html \
+		favicon-32x32.png
+rm: redbean.com
 	@zip -d redbean.com \
 		.init.lua .reload.lua \
-		.lua/fullmoon.lua \
-		.lua/haggis.lua
-ls:
+		.lua/* \
+		static/* \
+		404.html \
+		favicon-32x32.png
+
+ls: redbean.com
 	@unzip -vl redbean.com | grep -v \
-		'usr/\|.symtab\|help.txt\|redbean.png\|favicon.ico'
+		'usr/\|.symtab'
 
-log: ; tail -f redbean.log &
+log: ; tail -f redbean.log
 
-start:
-	./redbean.com -vv &
+start: redbean.com
+	./redbean.com -vv
 
-start-daemon:
+start-daemon: redbean.com
 	@(test ! -f redbean.pid && \
 		./redbean.com -vv -d -L redbean.log -P redbean.pid && \
-		echo "🦞 started $$(cat redbean.pid)") \
+		printf "\n🦞 started $$(cat redbean.pid)\n") \
 		|| echo "🦞 already running $$(cat redbean.pid)"
 
 restart-daemon: redbean.pid
-	@echo -e "🦞 restarted $$(cat redbean.pid)"
 	@kill -HUP $$(cat redbean.pid)
+	@printf "\n🦞 restarted $$(cat redbean.pid)\n"
 
 stop-daemon: redbean.pid
 	@kill -TERM $$(cat redbean.pid) && \
-		echo "🦞 stopped $$(cat redbean.pid)" && \
+		printf "\n🦞 stopped $$(cat redbean.pid)\n" && \
 		rm redbean.pid \
 
 clean: redbean.log redbean.pid
