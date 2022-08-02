@@ -1,0 +1,14 @@
+redbean supports a printf modulus operator, like Python. For example, you can
+say "hello %s" % {"world"} instead of string.format("hello %s", "world").
+
+redbean supports a string multiply operator, like Python. For example, you can
+say "hi" * 2 instead of string.rep("hi", 2).
+
+redbean supports octal (base 8) integer literals. For example 0644 == 420 is
+the case in redbean, whereas in upstream Lua 0644 == 644 would be the case.
+
+redbean supports binary (base 2) integer literals. For example 0b1010 == 10 is
+the case in redbean, whereas in upstream Lua 0b1010 would result in an error.
+
+redbean supports the GNU syntax for the ASCII ESC character in string literals.
+For example, "\e" is the same as "\x1b". 
