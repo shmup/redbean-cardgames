@@ -669,8 +669,8 @@ local function matchRoute(path, req)
 						if filter ~= "otherwise" then
 							local header = headerMap[filter]
 							-- check "dashed" headers, params, properties (method, port, host, etc.), and then headers again
-							local value
-							= (filter == "r" and req or header and req.headers[header] or req.params[filter] or req[filter] or req.headers[filter]) -- special request value -- an existing header
+							local value =
+								(filter == "r" and req or header and req.headers[header] or req.params[filter] or req[filter] or req.headers[filter]) -- special request value -- an existing header
 							-- condition can be a value (to compare with) or a table/hash with multiple values
 							local res, err = matchCondition(value, cond)
 							if not res then
@@ -1453,7 +1453,7 @@ fm.setTemplate(
 									end
 								end
 							end
-							-- write nothing here
+						-- write nothing here
 						-- this handles `_=raw"some<tag>"`
 						-- the following turns `tx={post="x", get="y"}`
 						-- into `["tx-post"]="x", ["tx-get"]="y"`
