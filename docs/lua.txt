@@ -1,3 +1,5 @@
+https://redbean.dev/#specials
+
 redbean supports a printf modulus operator, like Python. For example, you can
 say "hello %s" % {"world"} instead of string.format("hello %s", "world").
 
