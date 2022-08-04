@@ -15,7 +15,8 @@ A  2  3  4  5  6  7  8  9  0  J  Q  K
 
 -- Returns true if called from script, false if from a library
 local is_main = not pcall(debug.getlocal, 4, 1)
-local utils = require("utils")
+local c = require("card")
+local u = require("utils")
 
 local talon = {}
 local tableau = {}
@@ -38,16 +39,17 @@ local init = function()
 	end
 end
 
-local play = function(card, i)
-	table.insert(foundations[i], card)
+local play = function(card, foundation_index)
+	table.insert(foundations[foundation_index], card)
 end
 
-local pack = function(card, i)
-	table.insert(tableau[i], card)
+local pack = function(card, tableau_index)
+	table.insert(tableau[tableau_index], card)
 end
 
-local pack_topcard = function(i)
-	pack(table.remove(talon, 1), i)
+local pack_topcard = function(tableau_index)
+	local piss = table.remove(talon, 1)
+	pack(piss, tableau_index)
 end
 
 local play_topcard = function(i)
@@ -62,28 +64,29 @@ local view_topcard = function()
 	return talon[1]
 end
 
-local template = [[
-  A:%s
-  2:%s
-  3:%s
-  4:%s
+local template = [=[
 
-          %s
-]]
+    %s: %s
+    %s: %s
+    %s: %s
+    %s: %s
+               [%s]
+]=]
 
 local render = function()
 	local output =
 		string.format(
 			template,
-			utils.t_to_s(tableau[1]),
-			utils.t_to_s(tableau[2]),
-			utils.t_to_s(tableau[3]),
-			utils.t_to_s(tableau[4]),
-                        view_topcard()
+			c.picture(1),
+			u.t_to_s(c.pictures(tableau[1])),
+			c.picture(2),
+			u.t_to_s(c.pictures(tableau[2])),
+			c.picture(3),
+			u.t_to_s(c.pictures(tableau[3])),
+			c.picture(4),
+			u.t_to_s(c.pictures(tableau[4])),
+			c.picture(view_topcard())
 		)
-	-- string.format('%q', 'a string with "quotes" and \n new line')
-
-	print(output)
 	return output
 end
 
@@ -92,9 +95,6 @@ local calc = setmetatable(
 		_VERSION = 0.1,
 		_COPYRIGHT = "Jared Miller",
 		init = init,
-		jared = function()
-			return "miller"
-		end,
 		pack_topcard = pack_topcard,
 		play_topcard = play_topcard,
 		play_tableau = play_tableau,

@@ -49,4 +49,4 @@ clean: redbean.log redbean.pid
 	rm redbean.log redbean.pid
 
 test:
-	lua ./test/calculation_test.lua
+	@lua ./test/calculation_test.lua

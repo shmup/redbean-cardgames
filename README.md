@@ -1,11 +1,8 @@
-# Haggis with Friends
-
-> Haggis is a [shedding card game](https://en.wikipedia.org/wiki/Card_game#Shedding_games) for 2-3 players.
->
-> _https://en.wikipedia.org/wiki/Haggis_(card_game)_
+# Card games
 
 ## TODO
-- [ ] Everything
+- [x] Render unicode playing cards instead of indexes
+- [ ] Validate placement of cards in foundations
 
 ## Developer Documentation
 - https://redbean.dev/
