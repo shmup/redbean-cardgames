@@ -48,4 +48,5 @@ stop-daemon: redbean.pid
 clean: redbean.log redbean.pid
 	rm redbean.log redbean.pid
 
-test: ; @echo TODO
+test:
+	lua ./test/calculation_test.lua
