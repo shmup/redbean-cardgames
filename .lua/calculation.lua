@@ -23,12 +23,10 @@ local tableau = {}
 local foundations = {}
 
 local init = function()
-	-- build talon and shuffle
 	local n = 5
 	for i = n, 52 do
 		talon[i - (n - 1)] = i
 	end
-	-- talon = utils.shuffle(talon)
 
 	for i = 1, 4 do
 		tableau[i] = {}
@@ -48,21 +46,44 @@ local pack = function(card, tableau_index)
 end
 
 local pack_topcard = function(tableau_index)
-	local piss = table.remove(talon, 1)
-	pack(piss, tableau_index)
+	pack(table.remove(talon, #talon), tableau_index)
 end
 
 local play_topcard = function(i)
-	play(table.remove(talon, 1), i)
+	play(table.remove(talon, #talon), i)
 end
 
 local play_tableau = function(i, j)
-	play(table.remove(tableau[i], 1), j)
+	play(table.remove(tableau[i], #tableau[i]), j)
 end
 
-local view_topcard = function()
+local view_tableau = function()
 	return talon[1]
 end
+
+local view_topcard = function(t)
+	return t[#t]
+end
+
+local get_top_tableaus = function()
+	local t1 = view_topcard(tableau[1])
+	local t2 = view_topcard(tableau[2])
+	local t3 = view_topcard(tableau[3])
+	local t4 = view_topcard(tableau[4])
+
+	return { t1, t2, t3, t4 }
+end
+
+local view_talon = function()
+	return view_topcard(talon)
+end
+
+--  🂱: 🂭🂫
+--  🂲: 🂩
+--  🂳: 🂧
+--  🂴:
+
+--  [🂮🂪🂨]  [🂦]
 
 local template = [=[
 
@@ -70,22 +91,24 @@ local template = [=[
     %s: %s
     %s: %s
     %s: %s
-               [%s]
+
+    [%s]  [%s]
 ]=]
 
-local render = function()
+local text_render = function()
 	local output =
 		string.format(
 			template,
 			c.picture(1),
-			u.t_to_s(c.pictures(tableau[1])),
+			u.t_to_s(c.pictures(foundations[1])),
 			c.picture(2),
-			u.t_to_s(c.pictures(tableau[2])),
+			u.t_to_s(c.pictures(foundations[2])),
 			c.picture(3),
-			u.t_to_s(c.pictures(tableau[3])),
+			u.t_to_s(c.pictures(foundations[3])),
 			c.picture(4),
-			u.t_to_s(c.pictures(tableau[4])),
-			c.picture(view_topcard())
+			u.t_to_s(c.pictures(foundations[4])),
+			u.t_to_s(c.pictures(get_top_tableaus())),
+			c.picture(view_talon())
 		)
 	return output
 end
@@ -98,8 +121,8 @@ local calc = setmetatable(
 		pack_topcard = pack_topcard,
 		play_topcard = play_topcard,
 		play_tableau = play_tableau,
-		view_topcard = view_topcard,
-		render = render,
+		view_talon = view_talon,
+		text_render = text_render,
 	},
 	{}
 )
