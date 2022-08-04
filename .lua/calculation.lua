@@ -37,6 +37,26 @@ local init = function()
 	end
 end
 
+local set_talon = function(t)
+	talon = t
+end
+
+local view_topcard = function(t)
+	return t[#t]
+end
+
+local view_talon = function()
+	return view_topcard(talon)
+end
+
+local validate_play = function(card_index, foundation_index)
+	local value = c.cards[card_index][1]
+	local top_index = view_topcard(foundations[foundation_index]) or 0
+	local top = c.cards[top_index][1]
+	-- print(value, foundation_index, c.cards[top][1])
+	return value - foundation_index == 0 or value - top == foundation_index
+end
+
 local play = function(card, foundation_index)
 	table.insert(foundations[foundation_index], card)
 end
@@ -50,19 +70,13 @@ local pack_topcard = function(tableau_index)
 end
 
 local play_topcard = function(i)
-	play(table.remove(talon, #talon), i)
+	if validate_play(view_talon(), i) then
+		play(table.remove(talon, #talon), i)
+	end
 end
 
 local play_tableau = function(i, j)
 	play(table.remove(tableau[i], #tableau[i]), j)
-end
-
-local view_tableau = function()
-	return talon[1]
-end
-
-local view_topcard = function(t)
-	return t[#t]
 end
 
 local get_top_tableaus = function()
@@ -74,17 +88,12 @@ local get_top_tableaus = function()
 	return { t1, t2, t3, t4 }
 end
 
-local view_talon = function()
-	return view_topcard(talon)
-end
+--  🂱: 🃁
+--  🂲: 🃂
+--  🂳: 🃃🂶🂹
+--  🂴: 🃄🂸🂽
 
---  🂱: 🂭🂫
---  🂲: 🂩
---  🂳: 🂧
---  🂴:
-
---  [🂮🂪🂨]  [🂦]
-
+--  [🂵🂷🂺🂻]  [🂾]
 local template = [=[
 
     %s: %s
@@ -122,6 +131,7 @@ local calc = setmetatable(
 		play_topcard = play_topcard,
 		play_tableau = play_tableau,
 		view_talon = view_talon,
+		set_talon = set_talon,
 		text_render = text_render,
 	},
 	{}

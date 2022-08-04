@@ -1,8 +1,19 @@
 # Card games
 
+```bash
+$ make test
+    🂱: 🃁
+    🂲: 🃂
+    🂳: 🃃🂶🂹
+    🂴: 🃄🂸🂽
+    [🂵🂷🂺🂻] [🂾]
+```
+
 ## TODO
 - [x] Render unicode playing cards instead of indexes
-- [ ] Validate placement of cards in foundations
+- [x] Validate placement of cards in foundations
+- [ ] Handle winning
+- [ ] Handle losing
 
 ## Developer Documentation
 - https://redbean.dev/
