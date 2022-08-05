@@ -1,6 +1,6 @@
 .PHONY: all add rm ls run log run-daemon restart-daemon stop-daemon clean test
 
-all: add
+all: test
 
 redbean.com:
 	curl https://redbean.dev/redbean-latest.com >redbean.com

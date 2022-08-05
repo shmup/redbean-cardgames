@@ -46,7 +46,13 @@ local view_topcard = function(t)
 end
 
 local view_talon = function()
-	return view_topcard(talon)
+	local topcard = view_topcard(talon)
+	return topcard or 0
+end
+
+local view_tableau = function(i)
+	local topcard = view_topcard(tableau[i])
+	return topcard or 0
 end
 
 local validate_play = function(card_index, foundation_index)
@@ -55,6 +61,16 @@ local validate_play = function(card_index, foundation_index)
 	local top = c.cards[top_index][1]
 	-- print(value, foundation_index, c.cards[top][1])
 	return value - foundation_index == 0 or value - top == foundation_index
+end
+
+local you_win = function()
+    for i = 1, 4 do
+        if #tableau[i] ~= 0 then
+            return false
+        end
+    end
+
+    return #talon == 0
 end
 
 local play = function(card, foundation_index)
@@ -76,14 +92,16 @@ local play_topcard = function(i)
 end
 
 local play_tableau = function(i, j)
-	play(table.remove(tableau[i], #tableau[i]), j)
+    if validate_play(view_tableau(i), j) then
+        play(table.remove(tableau[i], #tableau[i]), j)
+    end
 end
 
 local get_top_tableaus = function()
-	local t1 = view_topcard(tableau[1])
-	local t2 = view_topcard(tableau[2])
-	local t3 = view_topcard(tableau[3])
-	local t4 = view_topcard(tableau[4])
+	local t1 = view_topcard(tableau[1]) or 0
+	local t2 = view_topcard(tableau[2]) or 0
+	local t3 = view_topcard(tableau[3]) or 0
+	local t4 = view_topcard(tableau[4]) or 0
 
 	return { t1, t2, t3, t4 }
 end
@@ -96,12 +114,12 @@ end
 --  [🂵🂷🂺🂻]  [🂾]
 local template = [=[
 
-    %s: %s
-    %s: %s
-    %s: %s
-    %s: %s
+    [%s: %s]
+    [%s: %s]
+    [%s: %s]
+    [%s: %s]
 
-    [%s]  [%s]
+    [%s] [%s]
 ]=]
 
 local text_render = function()
@@ -130,8 +148,9 @@ local calc = setmetatable(
 		pack_topcard = pack_topcard,
 		play_topcard = play_topcard,
 		play_tableau = play_tableau,
-		view_talon = view_talon,
 		set_talon = set_talon,
+		view_talon = view_talon,
+		view_tableau = view_tableau,
 		text_render = text_render,
 	},
 	{}
