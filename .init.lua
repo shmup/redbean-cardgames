@@ -1,8 +1,10 @@
 local fm = require("fullmoon")
 
 function Init(msg)
-	fm.setRoute("/favicon.ico", fm.serveAsset("favicon-32x32.png"))
+	fm.setRoute("/favicon.ico", fm.serveAsset("/static/suits.png"))
 	fm.setRoute("/static/*", fm.serveAsset)
+	fm.setRoute("/templates/*", fm.serveAsset)
+	fm.setRoute("/calculation", fm.serveAsset("/templates/calculation.html"))
 
 	fm.setRoute("/", function()
 		return msg

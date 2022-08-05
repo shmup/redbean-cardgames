@@ -11,15 +11,15 @@ add: redbean.com
 		.init.lua .reload.lua \
 		.lua/* \
 		static/* \
-		404.html \
-		favicon-32x32.png
+		templates/* \
+		404.html
 rm: redbean.com
 	@zip -d redbean.com \
 		.init.lua .reload.lua \
 		.lua/* \
 		static/* \
-		404.html \
-		favicon-32x32.png
+		templates/* \
+		404.html
 
 ls: redbean.com
 	@unzip -vl redbean.com | grep -v \
