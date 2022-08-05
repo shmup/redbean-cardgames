@@ -15,7 +15,6 @@ calc.pack_topcard(1)
 calc.play_topcard(1)
 
 local top_tableau = calc.view_tableau(1)
-print(top_tableau)
 
 calc.play_tableau(1, 2)
 
