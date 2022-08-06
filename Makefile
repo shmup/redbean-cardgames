@@ -1,52 +1,54 @@
-.PHONY: all add rm ls run log run-daemon restart-daemon stop-daemon clean test
+.PHONY: all add rm ls run log run-daemon restart-daemon stop-daemon clean test force FORCE
 
-all: test
+REDBEAN=redbean.com
+HOST=https://redbean.dev
+PID=redbean.pid
 
-redbean.com:
-	curl https://redbean.dev/redbean-latest.com >redbean.com
-	chmod +x redbean.com
+all: ${REDBEAN} test
 
-add: redbean.com
-	@zip redbean.com \
-		.init.lua .reload.lua \
-		.lua/* \
-		static/* \
-		templates/* \
-		404.html
-rm: redbean.com
-	@zip -d redbean.com \
-		.init.lua .reload.lua \
-		.lua/* \
-		static/* \
-		templates/* \
-		404.html
+FORCE: ;
+forcebean.com: FORCE
+	@cp -p ${REDBEAN}.template ${REDBEAN}
+	@chmod +x ${REDBEAN}
 
-ls: redbean.com
-	@unzip -vl redbean.com | grep -v \
+${REDBEAN}.template: ; curl -Rs ${HOST}/redbean-asan-2.0.16.com -o $@
+${REDBEAN}: ${REDBEAN}.template
+	cp ${REDBEAN}.template ${REDBEAN}
+	chmod +x ${REDBEAN}
+
+add: ${REDBEAN}.template forcebean.com
+	@${REDBEAN} \
+		-A .init.lua -A .reload.lua -A .lua \
+		-A static -A templates
+
+unzip.com: ; curl -Rs ${HOST}/unzip.com -o $@
+ls: unzip.com
+	@unzip -vl ${REDBEAN} | grep -v \
 		'usr/\|.symtab'
 
-log: ; tail -f redbean.log
+log: redbean.log
+	tail -f redbean.log
 
-start: redbean.com
-	./redbean.com -vv
+start: ${REDBEAN}
+	./${REDBEAN} -vv
 
-start-daemon: redbean.com
-	@(test ! -f redbean.pid && \
-		./redbean.com -vv -d -L redbean.log -P redbean.pid && \
-		printf "\n🦞 started $$(cat redbean.pid)\n") \
-		|| echo "🦞 already running $$(cat redbean.pid)"
+start-daemon: ${REDBEAN}
+	@(test ! -f ${PID} && \
+		./${REDBEAN} -vv -d -L redbean.log -P ${PID} && \
+		printf "\n🦞 started $$(cat ${PID})\n") \
+		|| echo "🦞 already running $$(cat ${PID})"
 
-restart-daemon: redbean.pid
-	@kill -HUP $$(cat redbean.pid)
-	@printf "\n🦞 restarted $$(cat redbean.pid)\n"
+restart-daemon: ${PID}
+	@kill -HUP $$(cat ${PID})
+	@printf "\n🦞 restarted $$(cat ${PID})\n"
 
-stop-daemon: redbean.pid
-	@kill -TERM $$(cat redbean.pid) && \
-		printf "\n🦞 stopped $$(cat redbean.pid)\n" && \
-		rm redbean.pid \
+stop-daemon: ${PID}
+	@kill -TERM $$(cat ${PID}) && \
+		printf "\n🦞 stopped $$(cat ${PID})\n" && \
+		rm ${PID} \
 
-clean: redbean.log redbean.pid
-	rm redbean.log redbean.pid
+clean:
+	rm -f redbean.log ${PID} ${REDBEAN} ${REDBEAN}.template
 
 test:
 	@lua ./test/calculation_test.lua

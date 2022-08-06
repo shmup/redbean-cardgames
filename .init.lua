@@ -9,6 +9,8 @@ function Init(msg)
 	fm.setRoute("/", function()
 		return msg
 	end)
+
+        fm.setTemplate("404", fm.serveAsset("/templates/404.html"))
 end
 
 fm.run()
