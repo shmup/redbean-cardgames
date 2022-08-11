@@ -1,3 +1,30 @@
-body {
-  background: url('../img/houndstooth.png');
+.container {
+  height: 100vh;
+  color: #d7cece;
+  background: #062606;
+}
+.card {
+  width: 100px;
+  height: 180px;
+  outline: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  font-size: 2em;
+}
+.container h1 {
+  text-align: center;
+}
+.flex {
+  display: flex;
+}
+.vflex {
+  display: flex;
+  flex-direction: column;
+}
+.board {
+  justify-content: center;
+  align-items: center;
+  flex: 1;
 }
