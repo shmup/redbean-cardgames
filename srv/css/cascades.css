@@ -1,0 +1,232 @@
+﻿/* Styles for Cascades by M. C. DeMarco.
+   Background pattern from subtlepatterns.com */
+
+/* basics */
+
+* {
+    box-sizing:border-box;
+}
+
+/* layout */
+
+html, body, div.bodyWrapper {
+    box-sizing:border-box;
+    margin:0;
+    height:100%;
+    width:100%;
+}
+
+body, div.bodyWrapper {
+    height: 100vh;
+    min-height: 625px;
+    min-width: 1000px;
+}
+
+/* an unfortunate mithril necessity */
+div.bodyWrapper {
+    height: 625px;
+    width: 1000px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+header {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    min-height: 66px;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-left: 1em;
+}
+
+header h1 {
+    -webkit-flex: 0 0 300px;
+    flex: 0 0 300px;
+}
+
+header p.description {
+    -webkit-flex: 0 auto;
+    flex: 0 auto;
+    white-space:nowrap;
+}
+
+main {
+    display: -webkit-flex;
+    display: flex;
+}
+
+/* the left column of main contains .versionWrapper, .roundWrapper, and .deckWrapper */
+div.leftColumn {
+    -webkit-flex: 0 0 300px;
+    flex: 0 0 300px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-left: 1em;
+    height: 541px;
+}
+
+.reserveWrapper {
+    text-align:center;
+    -webkit-flex: 0 0 175px;
+    flex: 0 0 175px;
+}
+
+/* .foundationWrapper is the third column in main */
+
+
+.buttonWrapper, .versionWrapper, .deckWrapper, .roundWrapper {
+    display: -webkit-flex;
+    display: flex;
+}
+.versionWrapper, .roundWrapper {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+.versionWrapper div {
+    -webkit-flex-direction: row;
+    flex-direction: row;
+}
+
+.buttonWrapper, .deckWrapper {
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.roundWrapper .message {
+    text-align:center;
+    min-height:20px;
+}
+
+/* inside deckWrapper */
+div.stock, div.waste {
+    margin: 5px;
+}
+
+/* the popup rules */
+
+div.modal {
+    position: fixed;
+    top: 12%;
+    right: 5%;
+    width:50%;
+    min-width:300px;
+    padding: 10px;
+    border: 2px solid darkslategray;
+    border-radius: 12px;
+    z-index: 3;
+    box-shadow:0 1px 8px rgba(47,79,79,0.4);
+    background: linear-gradient(rgba(47,79,79,0.2), rgba(47,79,79,0.2)), url('/img/skulls.png');
+    text-align:center;
+}
+
+div.modal p {
+    text-align: justify;
+}
+/* there is also a div.rules inside the modal */
+
+
+/* font and color */
+
+@font-face {
+    font-family: "Fortune Letters";
+    src: url(../css/fortune-letters.ttf) format("truetype");
+}
+
+body {
+    background-image: url('/img/skulls.png');
+    font-family: 'Segoe UI', 'Century Gothic', 'Lucida Grande', Tahoma, 'Gill Sans', sans-serif;
+    color: #030;
+}
+
+h1, h2, h3 {
+    font-family: 'Fortune Letters', Futura, Geneva, sans-serif;
+}
+
+h1, h2, h3 {
+    text-align:center;
+}
+
+h2, h3 {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+button {
+    margin:5px;
+    font-family: 'Fortune Letters', Futura, Geneva, sans-serif;
+    font-size: medium;
+}
+
+div.message {
+    color: coral;
+}
+
+div.versionWrapper p, p.description {
+    color:darkslategray;
+    font-style:italic;
+    font-size:smaller;
+}
+
+/* cards */
+
+/* Sizing
+   original card size: 100x150
+   teeny size: 62x87
+   remix card size: 124x174
+   embiggened size: 186x261
+   card source file size: 372x522 
+*/
+
+img.card {
+    width:124px;
+    height:174px;
+    border-radius:6px;
+    border:thin solid darkslategray;
+    background-size:124px 174px;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+div.reserve, div.foundation {
+    height: 180px;
+    position: relative;
+}
+
+div.foundation {
+    min-width: 300px;
+}
+
+.foundation img.card, .reserve img.card {
+    position:absolute;
+}
+
+.reserve img.card {
+    left:20px;
+}
+
+
+/* mobile */
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+p, input, textarea {
+ -webkit-user-select: text;
+ -moz-user-select: text;
+ -ms-user-select: text;
+ user-select: text;
+}
