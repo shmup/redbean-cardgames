@@ -1,4 +1,4 @@
-package.path = ".lua/?.lua;" .. package.path
+package.path = "srv/.lua/?.lua;" .. package.path
 
 local calc = require("calculation")
 local card = require("card")

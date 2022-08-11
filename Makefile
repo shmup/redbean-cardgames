@@ -1,33 +1,43 @@
-.PHONY: all add rm ls run log run-daemon restart-daemon stop-daemon clean test force FORCE
+.PHONY: all clean test
 
-REDBEAN=redbean.com
-HOST=https://redbean.dev
-PID=redbean.pid
+ZIP=zip.com
+ZIP_DL=https://redbean.dev/zip.com
+UNZIP=unzip.com
+UNZIP_DL=https://redbean.dev/unzip.com
+REDBEAN_DL=https://redbean.dev/redbean-asan-2.0.16.com
+	REDBEAN=redbean.com
+	PID=redbean.pid
 
-all: ${REDBEAN} test
+all: add
 
-FORCE: ;
-forcebean.com: FORCE
-	@cp -p ${REDBEAN}.template ${REDBEAN}
-	@chmod +x ${REDBEAN}
+${REDBEAN}.template:
+	curl -Rs ${REDBEAN_DL} -o $@ && \
+		chmod +x ${@}
 
-${REDBEAN}.template: ; curl -Rs ${HOST}/redbean-asan-2.0.16.com -o $@
 ${REDBEAN}: ${REDBEAN}.template
 	cp ${REDBEAN}.template ${REDBEAN}
-	chmod +x ${REDBEAN}
 
-add: ${REDBEAN}.template forcebean.com
-	@${REDBEAN} \
-		-A .init.lua -A .reload.lua -A .lua \
-		-A static -A templates
+${ZIP}:
+	curl -Rso ${ZIP} ${ZIP_DL}
 
-unzip.com: ; curl -Rs ${HOST}/unzip.com -o $@
+add: ${ZIP} ${REDBEAN}
+	cp -f ${REDBEAN}.template ${REDBEAN}
+	cd srv/ && ../${ZIP} -r ../${REDBEAN} `ls -A`
+
+unzip.com: ; curl -Rs ${ZIP_DL} -o $@
 ls: unzip.com
-	@unzip -vl ${REDBEAN} | grep -v \
+	@unzip -vl ./${REDBEAN} | grep -v \
 		'usr/\|.symtab'
 
 log: redbean.log
 	tail -f redbean.log
+
+dev:
+	@(test ! -f ${PID} && make --no-print-directory add && make --no-print-directory start-daemon) || \
+		(make --no-print-directory stop-daemon && \
+		make --no-print-directory add && \
+		make --no-print-directory start-daemon && \
+		make --no-print-directory log)
 
 start: ${REDBEAN}
 	./${REDBEAN} -vv
@@ -35,20 +45,24 @@ start: ${REDBEAN}
 start-daemon: ${REDBEAN}
 	@(test ! -f ${PID} && \
 		./${REDBEAN} -vv -d -L redbean.log -P ${PID} && \
-		printf "\n🦞 started $$(cat ${PID})\n") \
+		printf "🦞 started $$(cat ${PID})\n") \
 		|| echo "🦞 already running $$(cat ${PID})"
 
-restart-daemon: ${PID}
-	@kill -HUP $$(cat ${PID})
-	@printf "\n🦞 restarted $$(cat ${PID})\n"
+restart-daemon:
+	@(test ! -f ${PID} && \
+		./${REDBEAN} -vv -d -L redbean.log -P ${PID} && \
+		printf "🦞 started $$(cat ${PID})") \
+		|| kill -HUP $$(cat ${PID}) && \
+		printf "🦞 restarted $$(cat ${PID})\n"
 
 stop-daemon: ${PID}
 	@kill -TERM $$(cat ${PID}) && \
-		printf "\n🦞 stopped $$(cat ${PID})\n" && \
+		printf "🦞 stopped $$(cat ${PID})\n" && \
 		rm ${PID} \
 
 clean:
-	rm -f redbean.log ${PID} ${REDBEAN} ${REDBEAN}.template
+	rm -f redbean.log ${PID} ${REDBEAN} ${REDBEAN}.template  unzip.com
 
 test:
-	@lua ./test/calculation_test.lua
+	checkmake Makefile
+	lua test/calculation_test.lua
