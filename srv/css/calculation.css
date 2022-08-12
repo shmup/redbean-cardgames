@@ -4,9 +4,8 @@
   background: #062606;
 }
 .card {
-  width: 100px;
-  height: 180px;
-  outline: 1px solid white;
+  width: 140px;
+  height: 210px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,3 +27,74 @@
   align-items: center;
   flex: 1;
 }
+.talon {
+  margin-right: 40px;
+}
+.foundations {
+  margin-bottom: 60px;
+}
+.foundations .card, .tableaus .card {
+  margin-right: 20px;
+}
+
+._joker { background-image: url('/img/papercards/joker.png'); }
+._back1 { background-image: url('/img/papercards/back1.png'); }
+._back2 { background-image: url('/img/papercards/back2.png'); }
+._back3 { background-image: url('/img/papercards/back3.png'); }
+._1 { background-image: url('/img/papercards/1.png'); }
+._2 { background-image: url('/img/papercards/2.png'); }
+._3 { background-image: url('/img/papercards/3.png'); }
+._4 { background-image: url('/img/papercards/4.png'); }
+._5 { background-image: url('/img/papercards/5.png'); }
+._6 { background-image: url('/img/papercards/6.png'); }
+._7 { background-image: url('/img/papercards/7.png'); }
+._8 { background-image: url('/img/papercards/8.png'); }
+._9 { background-image: url('/img/papercards/9.png'); }
+._10 { background-image: url('/img/papercards/10.png'); }
+._11 { background-image: url('/img/papercards/11.png'); }
+._12 { background-image: url('/img/papercards/12.png'); }
+._13 { background-image: url('/img/papercards/13.png'); }
+._14 { background-image: url('/img/papercards/14.png'); }
+._15 { background-image: url('/img/papercards/15.png'); }
+._16 { background-image: url('/img/papercards/16.png'); }
+._17 { background-image: url('/img/papercards/17.png'); }
+._18 { background-image: url('/img/papercards/18.png'); }
+._19 { background-image: url('/img/papercards/19.png'); }
+._20 { background-image: url('/img/papercards/20.png'); }
+._21 { background-image: url('/img/papercards/21.png'); }
+._22 { background-image: url('/img/papercards/22.png'); }
+._23 { background-image: url('/img/papercards/23.png'); }
+._24 { background-image: url('/img/papercards/24.png'); }
+._25 { background-image: url('/img/papercards/25.png'); }
+._26 { background-image: url('/img/papercards/26.png'); }
+._27 { background-image: url('/img/papercards/27.png'); }
+._28 { background-image: url('/img/papercards/28.png'); }
+._29 { background-image: url('/img/papercards/29.png'); }
+._30 { background-image: url('/img/papercards/30.png'); }
+._31 { background-image: url('/img/papercards/31.png'); }
+._32 { background-image: url('/img/papercards/32.png'); }
+._33 { background-image: url('/img/papercards/33.png'); }
+._34 { background-image: url('/img/papercards/34.png'); }
+._35 { background-image: url('/img/papercards/35.png'); }
+._36 { background-image: url('/img/papercards/36.png'); }
+._37 { background-image: url('/img/papercards/37.png'); }
+._38 { background-image: url('/img/papercards/38.png'); }
+._39 { background-image: url('/img/papercards/39.png'); }
+._40 { background-image: url('/img/papercards/40.png'); }
+._41 { background-image: url('/img/papercards/41.png'); }
+._42 { background-image: url('/img/papercards/42.png'); }
+._43 { background-image: url('/img/papercards/43.png'); }
+._44 { background-image: url('/img/papercards/44.png'); }
+._45 { background-image: url('/img/papercards/45.png'); }
+._46 { background-image: url('/img/papercards/46.png'); }
+._47 { background-image: url('/img/papercards/47.png'); }
+._48 { background-image: url('/img/papercards/48.png'); }
+._49 { background-image: url('/img/papercards/49.png'); }
+._50 { background-image: url('/img/papercards/50.png'); }
+._51 { background-image: url('/img/papercards/51.png'); }
+._52 { background-image: url('/img/papercards/52.png'); }
+
+.card {
+  background-size: cover;
+}
+
