@@ -8,7 +8,11 @@ fm.setRoute("/calculation", fm.serveAsset("/templates/calculation.html"))
 fm.setRoute("/cascades", fm.serveAsset("/templates/cascades.html"))
 
 fm.setRoute("/", function()
-        return "TODO: Everything"
+	return "TODO: Everything"
+end)
+
+fm.setRoute("/api/v1/talon", function()
+	return fm.serveContent("json", { id = 15 })
 end)
 
 fm.setTemplate("404", fm.serveAsset("/templates/404.html"))

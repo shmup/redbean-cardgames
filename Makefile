@@ -32,6 +32,9 @@ ls: unzip.com
 log: redbean.log
 	tail -f redbean.log
 
+minify:
+	@echo "TODO: https://github.com/coderaiser/minify"
+
 dev:
 	@(test ! -f ${PID} && make --no-print-directory add && make --no-print-directory start-daemon) || \
 		(make --no-print-directory stop-daemon && \
