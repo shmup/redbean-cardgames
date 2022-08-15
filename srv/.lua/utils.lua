@@ -7,6 +7,7 @@ U.log = function(tbl)
 end
 
 U.shuffle = function(t)
+	math.randomseed(os.time()) -- so that the results are always different
 	local s = {}
 	for i = 1, #t do
 		s[i] = t[i]

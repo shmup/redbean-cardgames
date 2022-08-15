@@ -1,7 +1,9 @@
+/* scale with this technique https://stackoverflow.com/a/62734818/463678 */
+
 .container {
   height: 100vh;
   color: #d7cece;
-  background: #062606;
+  background: #126812;
 }
 .card {
   width: 140px;
@@ -37,10 +39,13 @@
   margin-right: 20px;
 }
 
+._empty { background-image: url('/img/papercards/empty.png'); }
+._blank { background-image: url('/img/papercards/blank.png'); }
 ._joker { background-image: url('/img/papercards/joker.png'); }
 ._back1 { background-image: url('/img/papercards/back1.png'); }
 ._back2 { background-image: url('/img/papercards/back2.png'); }
 ._back3 { background-image: url('/img/papercards/back3.png'); }
+._0 { background-image: url('/img/papercards/1.png'); }
 ._1 { background-image: url('/img/papercards/1.png'); }
 ._2 { background-image: url('/img/papercards/2.png'); }
 ._3 { background-image: url('/img/papercards/3.png'); }

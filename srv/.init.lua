@@ -1,4 +1,5 @@
 local fm = require("fullmoon")
+local calculation = require("calculation")
 
 fm.setRoute("/favicon.ico", fm.serveAsset("/static/suits.png"))
 fm.setRoute("/js/*", fm.serveAsset)
@@ -9,6 +10,10 @@ fm.setRoute("/cascades", fm.serveAsset("/templates/cascades.html"))
 
 fm.setRoute("/", function()
 	return "TODO: Everything"
+end)
+
+fm.setRoute("/api/v1/calculation/init", function()
+    return fm.serveContent("json", calculation.init())
 end)
 
 fm.setRoute("/api/v1/talon", function()

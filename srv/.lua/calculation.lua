@@ -22,21 +22,6 @@ local talon = {}
 local tableau = {}
 local foundations = {}
 
-local init = function()
-	local n = 5
-	for i = n, 52 do
-		talon[i - (n - 1)] = i
-	end
-
-	for i = 1, 4 do
-		tableau[i] = {}
-	end
-
-	for i = 1, 4 do
-		foundations[i] = {}
-	end
-end
-
 local set_talon = function(t)
 	talon = t
 end
@@ -63,15 +48,15 @@ local validate_play = function(card_index, foundation_index)
 	return value - foundation_index == 0 or value - top == foundation_index
 end
 
-local you_win = function()
-    for i = 1, 4 do
-        if #tableau[i] ~= 0 then
-            return false
-        end
-    end
+-- local you_win = function()
+-- 	for i = 1, 4 do
+-- 		if #tableau[i] ~= 0 then
+-- 			return false
+-- 		end
+-- 	end
 
-    return #talon == 0
-end
+-- 	return #talon == 0
+-- end
 
 local play = function(card, foundation_index)
 	table.insert(foundations[foundation_index], card)
@@ -91,10 +76,14 @@ local play_topcard = function(i)
 	end
 end
 
+local get_card = function(t, i)
+	return table.remove(t, i)
+end
+
 local play_tableau = function(i, j)
-    if validate_play(view_tableau(i), j) then
-        play(table.remove(tableau[i], #tableau[i]), j)
-    end
+	if validate_play(view_tableau(i), j) then
+		play(table.remove(tableau[i], #tableau[i]), j)
+	end
 end
 
 local get_top_tableaus = function()
@@ -112,7 +101,8 @@ end
 --  🂴: 🃄🂸🂽
 
 --  [🂵🂷🂺🂻]  [🂾]
-local template = [=[
+local template =
+	[=[
 
     [%s: %s]
     [%s: %s]
@@ -140,14 +130,39 @@ local text_render = function()
 	return output
 end
 
+local init = function()
+	local n = 1
+	local unsorted_talon = {}
+	for i = n, 52 do
+		unsorted_talon[i - (n - 1)] = i
+	end
+
+	for i = 1, 4 do
+		foundations[i] = { get_card(unsorted_talon, 1) }
+	end
+
+	talon = u.shuffle(unsorted_talon)
+
+	for i = 1, 4 do
+		tableau[i] = {}
+	end
+
+	return {
+		talonTopCard = view_topcard(talon),
+		tableau = tableau,
+		foundations = foundations,
+	}
+end
+
 local calc = setmetatable(
 	{
-		_VERSION = 0.1,
+		_VERSION = 0.3,
 		_COPYRIGHT = "Jared Miller",
 		init = init,
 		pack_topcard = pack_topcard,
 		play_topcard = play_topcard,
 		play_tableau = play_tableau,
+		get_card = get_card,
 		set_talon = set_talon,
 		view_talon = view_talon,
 		view_tableau = view_tableau,

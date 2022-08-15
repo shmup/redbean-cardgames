@@ -1,5 +1,6 @@
 .PHONY: all clean test
 
+NPD=--no-print-directory
 ZIP=zip.com
 ZIP_DL=https://redbean.dev/zip.com
 UNZIP=unzip.com
@@ -19,6 +20,7 @@ ${REDBEAN}: ${REDBEAN}.template
 
 ${ZIP}:
 	curl -Rso ${ZIP} ${ZIP_DL}
+	chmod +x ${ZIP}
 
 add: ${ZIP} ${REDBEAN}
 	cp -f ${REDBEAN}.template ${REDBEAN}
@@ -36,11 +38,11 @@ minify:
 	@echo "TODO: https://github.com/coderaiser/minify"
 
 dev:
-	@(test ! -f ${PID} && make --no-print-directory add && make --no-print-directory start-daemon) || \
-		(make --no-print-directory stop-daemon && \
-		make --no-print-directory add && \
-		make --no-print-directory start-daemon && \
-		make --no-print-directory log)
+	@(test ! -f ${PID} && make ${NPD} add && make ${NPD} start-daemon) || \
+		(make ${NPD} stop-daemon && \
+		make ${NPD} add && \
+		make ${NPD} start-daemon)
+	make ${NPD} log
 
 start: ${REDBEAN}
 	./${REDBEAN} -vv
@@ -64,7 +66,7 @@ stop-daemon: ${PID}
 		rm ${PID} \
 
 clean:
-	rm -f redbean.log ${PID} ${REDBEAN} ${REDBEAN}.template  unzip.com
+	rm -f redbean.log ${PID} ${REDBEAN} ${REDBEAN}.template ${ZIP} ${UNZIP}
 
 test:
 	checkmake Makefile
