@@ -3,11 +3,14 @@
 .container {
   height: 100vh;
   color: #d7cece;
-  background: #126812;
+  background: #f7f7ff;
+  background-image: url('/img/niceblue.gif');
 }
-.card {
+.dropzone {
   width: 140px;
   height: 210px;
+}
+.card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,14 +32,24 @@
   align-items: center;
   flex: 1;
 }
-.talon {
-  margin-right: 40px;
-}
 .foundations {
   margin-bottom: 60px;
 }
-.foundations .card, .tableaus .card {
+.talon, .foundation, .tableau {
+  background-size: cover;
+}
+.card-wrapper {
+  background: #dedeef;
   margin-right: 20px;
+}
+
+.dropzone {
+  background-image: url('/img/papercards/empty.png');
+  background-size: cover;
+}
+
+.card {
+  background-size: cover;
 }
 
 ._empty { background-image: url('/img/papercards/empty.png'); }
@@ -45,7 +58,7 @@
 ._back1 { background-image: url('/img/papercards/back1.png'); }
 ._back2 { background-image: url('/img/papercards/back2.png'); }
 ._back3 { background-image: url('/img/papercards/back3.png'); }
-._0 { background-image: url('/img/papercards/1.png'); }
+._0 { }
 ._1 { background-image: url('/img/papercards/1.png'); }
 ._2 { background-image: url('/img/papercards/2.png'); }
 ._3 { background-image: url('/img/papercards/3.png'); }

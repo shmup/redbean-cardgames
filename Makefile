@@ -38,11 +38,11 @@ minify:
 	@echo "TODO: https://github.com/coderaiser/minify"
 
 dev:
-	@(test ! -f ${PID} && make ${NPD} add && make ${NPD} start-daemon) || \
-		(make ${NPD} stop-daemon && \
-		make ${NPD} add && \
-		make ${NPD} start-daemon)
-	make ${NPD} log
+	@(test ! -f ${PID} && $(MAKE) ${NPD} add && $(MAKE) ${NPD} start-daemon) || \
+		($(MAKE) ${NPD} stop-daemon && \
+		$(MAKE) ${NPD} add && \
+		$(MAKE) ${NPD} start-daemon)
+	$(MAKE) ${NPD} log
 
 start: ${REDBEAN}
 	./${REDBEAN} -vv

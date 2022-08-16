@@ -20,6 +20,8 @@ $ make test
 
 -   [x] Render unicode playing cards instead of indexes
 -   [x] Validate placement of cards in foundations
+-   [x] Render cards in the browser
+-   [x] Add drag/drop events
 -   [ ] Handle winning
 -   [ ] Handle losing
 
@@ -37,3 +39,7 @@ $ make test
 
 -   https://devdocs.io/sqlite/
 -   https://learnxinyminutes.com/docs/sql/
+
+-----
+
+![image](https://user-images.githubusercontent.com/118710/184802178-5eaf12f0-219c-4c24-82a8-ab55adf45bc1.png)

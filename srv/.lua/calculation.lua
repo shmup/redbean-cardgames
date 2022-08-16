@@ -19,7 +19,7 @@ local c = require("card")
 local u = require("utils")
 
 local talon = {}
-local tableau = {}
+local tableaus = {}
 local foundations = {}
 
 local set_talon = function(t)
@@ -36,7 +36,7 @@ local view_talon = function()
 end
 
 local view_tableau = function(i)
-	local topcard = view_topcard(tableau[i])
+	local topcard = view_topcard(tableaus[i])
 	return topcard or 0
 end
 
@@ -50,7 +50,7 @@ end
 
 -- local you_win = function()
 -- 	for i = 1, 4 do
--- 		if #tableau[i] ~= 0 then
+-- 		if #tableaus[i] ~= 0 then
 -- 			return false
 -- 		end
 -- 	end
@@ -63,7 +63,9 @@ local play = function(card, foundation_index)
 end
 
 local pack = function(card, tableau_index)
-	table.insert(tableau[tableau_index], card)
+	print(tableau_index)
+	print(card)
+	table.insert(tableaus[tableau_index], card)
 end
 
 local pack_topcard = function(tableau_index)
@@ -82,15 +84,15 @@ end
 
 local play_tableau = function(i, j)
 	if validate_play(view_tableau(i), j) then
-		play(table.remove(tableau[i], #tableau[i]), j)
+		play(table.remove(tableaus[i], #tableaus[i]), j)
 	end
 end
 
 local get_top_tableaus = function()
-	local t1 = view_topcard(tableau[1]) or 0
-	local t2 = view_topcard(tableau[2]) or 0
-	local t3 = view_topcard(tableau[3]) or 0
-	local t4 = view_topcard(tableau[4]) or 0
+	local t1 = view_topcard(tableaus[1]) or 0
+	local t2 = view_topcard(tableaus[2]) or 0
+	local t3 = view_topcard(tableaus[3]) or 0
+	local t4 = view_topcard(tableaus[4]) or 0
 
 	return { t1, t2, t3, t4 }
 end
@@ -144,12 +146,12 @@ local init = function()
 	talon = u.shuffle(unsorted_talon)
 
 	for i = 1, 4 do
-		tableau[i] = {}
+		tableaus[i] = { 0 }
 	end
 
 	return {
 		talonTopCard = view_topcard(talon),
-		tableau = tableau,
+		tableaus = tableaus,
 		foundations = foundations,
 	}
 end
