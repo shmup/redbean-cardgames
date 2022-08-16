@@ -22,6 +22,9 @@ ${ZIP}:
 	curl -Rso ${ZIP} ${ZIP_DL}
 	chmod +x ${ZIP}
 
+bundle-js: bin/genmap js/libs/utils.js js/libs/dnd.js js/libs/mithril.js js/calculation.js
+	cd srv/js && ../../bin/genmap.sh libs/utils.js libs/dnd.js libs/mithril.js calculation.js
+
 add: ${ZIP} ${REDBEAN}
 	cp -f ${REDBEAN}.template ${REDBEAN}
 	cd srv/ && ../${ZIP} -r ../${REDBEAN} `ls -A`
