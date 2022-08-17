@@ -49,7 +49,7 @@ const Calculation = {
         { class: "board flex" },
         div({ class: "inner-board flex" }, [
           div(
-            { class: "talon dropzone card-wrapper" },
+            { class: "talon dropzone card-wrapper _back2" },
             div({
               draggable: true,
               class: `card dropzone _${GameState.talon.topCard}`,

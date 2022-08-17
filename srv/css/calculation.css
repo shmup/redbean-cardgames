@@ -52,6 +52,18 @@
   background-size: cover;
 }
 
+.dragging {
+  /** TODO fix weird persistent background when rotating **/
+  /* background-color: transparent; */
+  /* transform: rotate(5deg); /1* Equal to rotateZ(45deg) *1/ */
+}
+
+.dragover {
+  outline: none;
+  border-color: #0069bd;
+  box-shadow: 0 0 14px #006bc1;
+}
+
 ._empty { background-image: url('/img/papercards/empty.png'); }
 ._blank { background-image: url('/img/papercards/blank.png'); }
 ._joker { background-image: url('/img/papercards/joker.png'); }
