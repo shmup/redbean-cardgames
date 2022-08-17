@@ -1,0 +1,22 @@
+{
+  "srv/templates/*.html": {
+    "alternate": "srv/js/{}.js",
+    "type": "source"
+  },
+  "srv/js/libs/*.js": {
+    "alternate": "srv/js/calculation.js",
+    "type": "source"
+  },
+  "srv/js/*.js": {
+    "alternate": "srv/templates/{}.html",
+    "type": "source"
+  },
+  "srv/.lua/*.lua": {
+    "alternate": "test/{}_test.lua",
+    "type": "test"
+  },
+  "test/*_test.lua": {
+    "alternate": "srv/.lua/{}.lua",
+    "type": "test"
+  }
+}
