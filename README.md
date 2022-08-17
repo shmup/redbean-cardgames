@@ -18,12 +18,16 @@ $ make test
 
 #### [Calculation](<https://en.wikipedia.org/wiki/Calculation_(card_game)>) (patience)
 
+-   [ ] Update GameState after drag/drop (currently only updated on the DOM)
+-   [ ] Fire a validate request during a `dragenter` or `drop` ?
+    * Kinda pointless but I wanted to toy with keeping that kinda stuff "truly" hidden until client needs it
+-   [ ] Handle winning (aka empty talon and empty tableaus)
+-   [ ] Handle losing (determining if a game is unwinnable)
+-   [ ] Add some cute free sounds (or make my own)
 -   [x] Render unicode playing cards instead of indexes
 -   [x] Validate placement of cards in foundations
 -   [x] Render cards in the browser
 -   [x] Add drag/drop events
--   [ ] Handle winning
--   [ ] Handle losing
 
 ## ♢ Developer Documentation
 
