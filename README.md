@@ -42,4 +42,8 @@ $ make test
 
 -----
 
-![image](https://user-images.githubusercontent.com/118710/184802178-5eaf12f0-219c-4c24-82a8-ab55adf45bc1.png)
+#### Example of drag and drop
+
+https://html.spec.whatwg.org/multipage/dnd.html#drag-and-drop-processing-model
+
+https://user-images.githubusercontent.com/118710/185034491-11b5eb0e-0441-4f7a-8ee5-720b699457ef.mp4
