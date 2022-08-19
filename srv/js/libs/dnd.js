@@ -12,28 +12,33 @@
   };
 
   /* events fired on the draggable target */
-  addListener("drag", (e) => {
-    console.debug("dragging", e.target);
-  }, 500);
+  addListener(
+    "drag",
+    (e) => {
+      dnd.onDrag && dnd.onDrag(e);
+    },
+    500
+  );
 
   addListener("dragstart", (e) => {
+    dnd.onDragEnd && dnd.onDragEnd(e);
+
     // store a ref. on the dragged elem
     dragged = e.target;
     // make it half transparent
     e.target.classList.add("dragging");
 
-    setTimeout(function() {
+    setTimeout(function () {
       e.target.style.visibility = "hidden";
     }, 1);
   });
 
   addListener("dragend", (e) => {
-    // console.debug("dropped", e.target);
-    // reset the transparency
+    dnd.onDragEnd && dnd.onDragEnd(e);
 
-    e.target.classList.remove("dragging" );
+    e.target.classList.remove("dragging");
 
-    setTimeout(function() {
+    setTimeout(function () {
       e.target.style.visibility = "";
     }, 1);
 
@@ -41,16 +46,14 @@
   });
 
   /* events fired on the drop targets */
-  addListener(
-    "dragover",
-    (e) => {
-      // prevent default to allow drop
-      e.preventDefault();
-    }
-  );
+  addListener("dragover", (e) => {
+    dnd.onDragOver && dnd.onDragLeave(e);
+    // prevent default to allow drop
+    e.preventDefault();
+  });
 
   addListener("dragenter", (e) => {
-    console.debug("enter dropzone", e.target, e);
+    dnd.onDragEnter && dnd.onDragEnter(e);
 
     // highlight potential drop target when the draggable element enters it
     if (e.target.classList.contains("dropzone")) {
@@ -59,7 +62,7 @@
   });
 
   addListener("dragleave", (e) => {
-    console.debug("leave dropzone", e.target);
+    dnd.onDragLeave && dnd.onDragLeave(e);
 
     // reset background of potential drop target when the draggable element leaves it
     if (e.target.classList.contains("dropzone")) {
@@ -68,7 +71,7 @@
   });
 
   addListener("drop", (e) => {
-    console.debug("drop", e);
+    dnd.onDrop && dnd.onDrop(e);
 
     // prevent default action (open as link for some elements)
     e.preventDefault();

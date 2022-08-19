@@ -18,5 +18,4 @@ local top_tableau = calc.view_tableau(1)
 
 calc.play_tableau(1, 2)
 
-
 print(calc.text_render())

@@ -13,7 +13,11 @@ fm.setRoute("/", function()
 end)
 
 fm.setRoute("/api/v1/calculation/init", function()
-    return fm.serveContent("json", calculation.init())
+	return fm.serveContent("json", calculation.init())
+end)
+
+fm.setRoute("/api/v1/talon", function()
+	return fm.serveContent("json", { id = 15 })
 end)
 
 fm.setRoute("/api/v1/talon", function()

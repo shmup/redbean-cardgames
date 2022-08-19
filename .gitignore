@@ -3,8 +3,8 @@
 
 docs/
 
-redbean.log
-redbean.pid
+*.log
+*.pid
 
 /js
 /css

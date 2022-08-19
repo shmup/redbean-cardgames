@@ -63,8 +63,6 @@ local play = function(card, foundation_index)
 end
 
 local pack = function(card, tableau_index)
-	print(tableau_index)
-	print(card)
 	table.insert(tableaus[tableau_index], card)
 end
 

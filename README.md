@@ -20,7 +20,7 @@ $ make test
 
 -   [ ] Update GameState after drag/drop (currently only updated on the DOM)
 -   [ ] Fire a validate request during a `dragenter` or `drop` ?
-    * Kinda pointless but I wanted to toy with keeping that kinda stuff "truly" hidden until client needs it
+        * Kinda pointless but I wanted to toy with keeping that kinda stuff "truly" hidden until client needs it
 -   [ ] Handle winning (aka empty talon and empty tableaus)
 -   [ ] Handle losing (determining if a game is unwinnable)
 -   [ ] Add some cute free sounds (or make my own)
