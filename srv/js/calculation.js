@@ -5,20 +5,23 @@ const ul = (...args) => m("ul", ...args);
 const li = (...args) => m("li", ...args);
 const card = (cardId) => ({
   draggable: true,
-  "data-id": cardId,
+  "data-card_id": cardId,
+  "data-type_id": 0,
   class: `card dropzone _${cardId}`,
 });
 
-dnd.onDragEnter = (e) => {
-  console.log("onDragEnter", e.target);
+dnd.onDrop = (draggedNode, zoneNode) => {
+  const draggedData = draggedNode.dataset;
+  const zoneData = zoneNode.dataset;
+
+  console.log('dropped', draggedData, zoneData);
+
+  return true;
 };
 
-dnd.onDragEnd = (e) => {
-  console.log("onDropEnd", e.target);
-};
-
-dnd.onDrop = (e) => {
-  console.log("onDrop", e.target);
+const ZoneTypes = {
+  foundation: 0,
+  tableau: 1,
 };
 
 const GameState = {
@@ -41,7 +44,7 @@ const GameState = {
     error: "",
     topCard: 0,
     fetch: () => {
-      get("/api/v1/talon")
+      get("/api/v1/calculation/talon")
         .then((card) => {
           GameState.talon.topCard = card.id;
         })
@@ -66,20 +69,38 @@ const Calculation = {
         { class: "board flex" },
         div({ class: "inner-board flex" }, [
           div(
-            { class: "talon dropzone card-wrapper _back2" },
+            {
+              "data-type_id": 3,
+              "data-zone_id": 0,
+              class: "talon dropzone card-wrapper _back2",
+            },
             div(card(GameState.talon.topCard))
           ),
           div([
             ul(
               { class: "foundations flex" },
-              GameState.foundations.stack.map((cardId) =>
-                div({ class: `card-wrapper dropzone` }, li(card(cardId)))
+              GameState.foundations.stack.map((cardId, zoneId) =>
+                div(
+                  {
+                    "data-type_id": 1,
+                    "data-zone_id": zoneId,
+                    class: `card-wrapper foundation dropzone`,
+                  },
+                  li(card(cardId))
+                )
               )
             ),
             ul(
               { class: "tableaus flex" },
-              GameState.tableaus.stack.map((cardId) =>
-                div({ class: `card-wrapper dropzone` }, li(card(cardId)))
+              GameState.tableaus.stack.map((cardId, zoneId) =>
+                div(
+                  {
+                    "data-type_id": 2,
+                    "data-zone_id": zoneId,
+                    class: `card-wrapper tableau dropzone`,
+                  },
+                  Number(cardId) !== 0 && li(card(cardId))
+                )
               )
             ),
           ]),

@@ -9,7 +9,12 @@ fm.setRoute("/calculation", fm.serveAsset("/templates/calculation.html"))
 fm.setRoute("/cascades", fm.serveAsset("/templates/cascades.html"))
 
 fm.setRoute("/", function()
-	return "TODO: Everything"
+	return [[
+      <p>Current WIP:</p>
+      <ul>
+        <li><a href="/calculation">Calculation</a> - Laying out the groundwork, not an actual game yet</li>
+      </ul>
+    ]]
 end)
 
 fm.setRoute("/api/v1/calculation/init", function()
@@ -23,7 +28,7 @@ end)
 fm.setRoute(fm.POST{ "/api/v1/calculation/pack_topcard/:t_id[%d]" }, function(r)
 	local tableau_id = tonumber(r.params.t_id)
 
-        calculation.pack_topcard(tableau_id)
+	calculation.pack_topcard(tableau_id)
 
 	return fm.serveContent("json", {
 		success = true,

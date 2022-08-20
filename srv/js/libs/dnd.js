@@ -71,8 +71,6 @@
   });
 
   addListener("drop", (e) => {
-    dnd.onDrop && dnd.onDrop(e);
-
     // prevent default action (open as link for some elements)
     e.preventDefault();
 
@@ -82,6 +80,12 @@
     // prevent the dragged being dropped into itself
     if (dragged === e.target) {
       return;
+    }
+
+    if (typeof dnd.onDrop === 'function') {
+      const result = dnd.onDrop(dragged, e.target);
+
+      if (!result) return;
     }
 
     // move dragged element to the selected drop target
