@@ -50,17 +50,23 @@ dev:
 	@$(MAKE) ${NPD} log
 
 start: ${REDBEAN}
-	./${REDBEAN} -vv
+	./${REDBEAN} $(ARGS)
+
+start-verbose:
+	$(MAKE) start ARGS="-vv"
 
 start-daemon: ${REDBEAN}
 	@(test ! -f ${PROJECT}.pid && \
-		./${REDBEAN} -vv -d -L ${PROJECT}.log -P ${PROJECT}.pid && \
+		./${REDBEAN} $(ARGS) -d -L ${PROJECT}.log -P ${PROJECT}.pid && \
 		printf "🦞 started $$(cat ${PROJECT}.pid)\n") \
 		|| echo "🦞 already running $$(cat ${PROJECT}.pid)"
 
+start-verbose-daemon:
+	$(MAKE) start-daemon ARGS="-vv"
+
 restart-daemon:
 	@(test ! -f ${PROJECT}.pid && \
-		./${REDBEAN} -vv -d -L ${PROJECT}.log -P ${PROJECT} && \
+		./${REDBEAN} $(ARGS) -d -L ${PROJECT}.log -P ${PROJECT} && \
 		printf "🦞 started $$(cat ${PROJECT}.pid)") \
 		|| kill -HUP $$(cat ${PROJECT}.pid) && \
 		printf "🦞 restarted $$(cat ${PROJECT}.pid)\n"
