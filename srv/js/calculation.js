@@ -3,10 +3,18 @@ const get = (url) => m.request({ method: "GET", url });
 const div = (...args) => m("div", ...args);
 const ul = (...args) => m("ul", ...args);
 const li = (...args) => m("li", ...args);
+
+const Types = {
+  card: 0,
+  foundation: 1,
+  tableau: 2,
+  talon: 3,
+};
+
 const card = (cardId) => ({
   draggable: true,
   "data-card_id": cardId,
-  "data-type_id": 0,
+  "data-type_id": Types.card,
   class: `card dropzone _${cardId}`,
 });
 
@@ -17,11 +25,6 @@ dnd.onDrop = (draggedNode, zoneNode) => {
   console.log('dropped', draggedData, zoneData);
 
   return true;
-};
-
-const ZoneTypes = {
-  foundation: 0,
-  tableau: 1,
 };
 
 const GameState = {
@@ -70,7 +73,7 @@ const Calculation = {
         div({ class: "inner-board flex" }, [
           div(
             {
-              "data-type_id": 3,
+              "data-type_id": Types.talon,
               "data-zone_id": 0,
               class: "talon dropzone card-wrapper _back2",
             },
@@ -82,7 +85,7 @@ const Calculation = {
               GameState.foundations.stack.map((cardId, zoneId) =>
                 div(
                   {
-                    "data-type_id": 1,
+                    "data-type_id": Types.foundation,
                     "data-zone_id": zoneId,
                     class: `card-wrapper foundation dropzone`,
                   },
@@ -95,7 +98,7 @@ const Calculation = {
               GameState.tableaus.stack.map((cardId, zoneId) =>
                 div(
                   {
-                    "data-type_id": 2,
+                    "data-type_id": Types.tableau,
                     "data-zone_id": zoneId,
                     class: `card-wrapper tableau dropzone`,
                   },
