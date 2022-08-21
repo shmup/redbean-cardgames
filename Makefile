@@ -61,6 +61,9 @@ start-daemon: ${REDBEAN}
 		printf "🦞 started $$(cat ${PROJECT}.pid)\n") \
 		|| echo "🦞 already running $$(cat ${PROJECT}.pid)"
 
+start-dirmon: ${REDBEAN}
+	@$(MAKE) start-daemon ARGS="-D srv"
+
 start-verbose-daemon:
 	$(MAKE) start-daemon ARGS="-vv"
 

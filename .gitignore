@@ -1,6 +1,8 @@
 *.com
 *.com.template
 
+srv/js/bundle*
+
 docs/
 
 *.log
