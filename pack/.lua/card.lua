@@ -1,3 +1,4 @@
+local u = require("utils")
 local c = {}
 
 c.cards = {
@@ -55,6 +56,10 @@ c.cards = {
 	[51] = { "12", "♠", "🂭" },
 	[52] = { "13", "♠", "🂮" },
 }
+
+c.get_standard_deck_ids = function()
+    return u.subrange(c.cards, 2, 52)
+end
 
 c.cardify = function(index)
 	if type(index) == "number" then

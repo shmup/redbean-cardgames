@@ -1,4 +1,4 @@
-package.path = "srv/.lua/?.lua;" .. package.path
+package.path = "pack/.lua/?.lua;" .. package.path
 
 local calc = require("calculation")
 local card = require("card")
@@ -13,8 +13,6 @@ calc.play_topcard(1)
 calc.play_topcard(1)
 calc.pack_topcard(1)
 calc.play_topcard(1)
-
-local top_tableau = calc.view_tableau(1)
 
 calc.play_tableau(1, 2)
 

@@ -1,5 +1,8 @@
 local fm = require("fullmoon")
 local calculation = require("calculation")
+local sql = require("sqlite")
+
+sql.init_calculation()
 
 fm.setRoute("/favicon.ico", fm.serveAsset("/static/suits.png"))
 fm.setRoute("/js/*", fm.serveAsset)
@@ -9,7 +12,10 @@ fm.setRoute("/img/*", fm.serveAsset)
 fm.setRoute("/", fm.serveAsset("/templates/index.html"))
 fm.setRoute("/cascades", fm.serveAsset("/templates/cascades.html"))
 
-fm.setRoute("/calculation", fm.serveAsset("/templates/calculation.html"))
+fm.setRoute("/calculation", function()
+    sql.init_calculation()
+    return fm.serveAsset("/templates/calculation.html")
+end)
 fm.setRoute("/api/v1/calculation/init", function()
 	return fm.serveContent("json", calculation.init())
 end)
