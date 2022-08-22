@@ -1,5 +1,6 @@
 *.com
 *.com.template
+definitions
 
 srv/js/bundle*
 

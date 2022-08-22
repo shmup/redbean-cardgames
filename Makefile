@@ -3,7 +3,7 @@
 
 PROJECT=cardgames
 REDBEAN=${PROJECT}.com
-REDBEAN_VERSION=2.0.16
+REDBEAN_VERSION=2.0.17
 VOICE=-v -v
 REDBEAN_DL=https://redbean.dev/redbean-${REDBEAN_VERSION}.com
 
@@ -11,10 +11,12 @@ ZIP=zip.com
 ZIP_DL=https://redbean.dev/zip.com
 UNZIP=unzip.com
 UNZIP_DL=https://redbean.dev/unzip.com
+DEFINITIONS=definitions/redbean.lua
+DEFINITIONS_DL=https://raw.githubusercontent.com/jart/cosmopolitan/d76dfadc7a0a9a5b7500d697e15a64c70d53eb12/tool/net/definitions.lua
 
 NPD=--no-print-directory
 
-all: add
+all: add ${DEFINITIONS}
 
 ${REDBEAN}.template:
 	curl -s ${REDBEAN_DL} -o $@ -z $@ && \
@@ -26,6 +28,10 @@ ${REDBEAN}: ${REDBEAN}.template
 ${ZIP}:
 	curl -s ${ZIP_DL} -o $@ -z $@
 	chmod +x ${ZIP}
+
+${DEFINITIONS}:
+	mkdir -p definitions
+	curl -Rso ${DEFINITIONS} ${DEFINITIONS_DL}
 
 minify: ; @echo "TODO: https://github.com/coderaiser/minify"
 
@@ -78,10 +84,12 @@ dev:
 		$(MAKE) ${NPD} stop-daemon && $(MAKE) ${NPD} add-pack && $(MAKE) ${NPD} start-dirmon)
 	@$(MAKE) ${NPD} log
 
-# TODO - possibly check if the pid is running before you rm the .pid
-clean:
-	rm -f ${PROJECT}.log ${PROJECT}.pid ${REDBEAN} ${REDBEAN}.template ${ZIP} ${UNZIP}
-
 test:
 	checkmake Makefile
 	lua test/calculation_test.lua
+	lua test/sql_test.lua
+
+# TODO - possibly check if the pid is running before you rm the .pid
+clean:
+	rm -f ${PROJECT}.log ${PROJECT}.pid ${REDBEAN} ${REDBEAN}.template ${ZIP} ${UNZIP} ${DEFINITIONS}
+	[ "$(ls -A definitions)" ] || rm -rf definitions 
