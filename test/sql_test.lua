@@ -1,3 +1,3 @@
-package.path = "srv/.lua/?.lua;" .. package.path
+package.path = "pack/.lua/?.lua;" .. package.path
 
 print("TODO")

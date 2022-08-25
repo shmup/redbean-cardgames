@@ -22,3 +22,10 @@ CREATE TABLE IF NOT EXISTS game (
         FOREIGN KEY(cardId) REFERENCES card(cardId),
         FOREIGN KEY(zoneId) REFERENCES zone(zoneId)
 );
+
+INSERT INTO suit(suitName) VALUES('club');
+INSERT INTO suit(suitName) VALUES('diamond');
+INSERT INTO suit(suitName) VALUES('heart');
+INSERT INTO suit(suitName) VALUES('spade');
+
+INSERT INTO card(suitId, cardRank) VALUES(15, 1);

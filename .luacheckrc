@@ -1,7 +1,11 @@
 std = {
    globals = {},
    read_globals = {
-      "LaunchBrowser"
+      "LaunchBrowser",
+      "lsqlite3",
+      "LoadAsset",
+      "print",
+      "error"
    }
 }
 

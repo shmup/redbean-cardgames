@@ -1,8 +1,10 @@
 local fm = require("fullmoon")
 local calculation = require("calculation")
+local u = require("utils")
 local sql = require("sqlite")
 
 sql.init_calculation()
+sql.test()
 
 fm.setRoute("/favicon.ico", fm.serveAsset("/static/suits.png"))
 fm.setRoute("/js/*", fm.serveAsset)
