@@ -11,8 +11,8 @@ const Types = {
   talon: 3,
 };
 
-const card = (cardId) => ({
-  draggable: true,
+const card = (cardId, draggable = true) => ({
+  draggable,
   "data-card_id": cardId,
   "data-type_id": Types.card,
   class: `card dropzone _${cardId}`,
@@ -22,7 +22,9 @@ dnd.onDrop = (draggedNode, zoneNode) => {
   const draggedData = draggedNode.dataset;
   const zoneData = zoneNode.dataset;
 
-  console.log('dropped', draggedData, zoneData);
+  draggedNode.draggable = false;
+
+  console.log("dropped", draggedData, zoneData);
 
   return true;
 };
@@ -89,7 +91,7 @@ const Calculation = {
                     "data-zone_id": zoneId,
                     class: `card-wrapper foundation dropzone`,
                   },
-                  li(card(cardId))
+                  li(card(cardId, (draggable = false)))
                 )
               )
             ),
