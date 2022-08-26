@@ -1,6 +1,5 @@
 local fm = require("fullmoon")
 local calculation = require("calculation")
-local u = require("utils")
 local sql = require("sqlite")
 
 sql.init_calculation()

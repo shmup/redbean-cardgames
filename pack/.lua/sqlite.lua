@@ -19,7 +19,7 @@ SQL.query = function()
 end
 
 SQL.test = function()
-    for suit in SQL.query() do u.fprint(suit) end
+    for suit in SQL.query() do u.pprint(suit) end
 end
 
 return SQL

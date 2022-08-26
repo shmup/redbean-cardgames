@@ -27,38 +27,8 @@ U.t_to_s = function(t)
 	return s
 end
 
-U.fprint = function(tbl, indent)
-	indent = indent or 1
-        local output = ''
-	for k, v in pairs(tbl) do
-		local formatting = string.rep("  ", indent) .. k .. ": "
-		if type(v) == "table" then
-                        output = output .. formatting
-			U.pprint(v, indent + 1)
-		else
-                    if type(v) == "boolean" then
-                        output = output .. formatting .. tostring(v)
-		    else
-                        output = output .. formatting .. v
-                    end
-		end
-	end
-        print(output)
-end
-
-U.pprint = function(tbl, indent)
-	indent = indent or 0
-	for k, v in pairs(tbl) do
-		local formatting = string.rep("  ", indent) .. k .. ": "
-		if type(v) == "table" then
-			print(formatting)
-			U.pprint(v, indent + 1)
-		elseif type(v) == "boolean" then
-			print(formatting .. tostring(v))
-		else
-			print(formatting .. v)
-		end
-	end
+U.pprint = function(tbl)
+    print(EncodeLua(tbl))
 end
 
 return U
