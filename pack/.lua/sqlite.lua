@@ -1,4 +1,4 @@
-local u = require('utils')
+local u = require("utils")
 local lsqlite3 = require("lsqlite3")
 local dbm = lsqlite3.open_memory()
 
@@ -8,18 +8,27 @@ local dbm = lsqlite3.open_memory()
 local SQL = {}
 
 SQL.init_calculation = function()
-	if dbm:exec(LoadAsset("sql/calculation.sql")) > 0 then
+	if dbm:exec(
+		"PRAGMA foreign_keys = ON;" .. LoadAsset("sql/calculation.sql")
+	) > 0 then
 		print(dbm:errmsg())
 		error("can't create tables")
 	end
 end
 
-SQL.query = function()
-    return dbm:rows("SELECT suitId, suitName FROM suit")
+SQL.query = function(stmt)
+	return dbm:rows(stmt)
 end
 
 SQL.test = function()
-    for suit in SQL.query() do u.pprint(suit) end
+	local q =
+		[[
+    SELECT cardId, suitName, cardRank FROM card
+    INNER JOIN suit ON card.suitId = suit.suitId
+    ]]
+	for suit in SQL.query(q) do
+		u.pprint(suit)
+	end
 end
 
 return SQL

@@ -28,4 +28,18 @@ INSERT INTO suit(suitName) VALUES('diamond');
 INSERT INTO suit(suitName) VALUES('heart');
 INSERT INTO suit(suitName) VALUES('spade');
 
-INSERT INTO card(suitId, cardRank) VALUES(15, 1);
+INSERT INTO zone(zoneName) VALUES('talon');
+INSERT INTO zone(zoneName) VALUES('tableu');
+INSERT INTO zone(zoneName) VALUES('tableu');
+INSERT INTO zone(zoneName) VALUES('tableu');
+INSERT INTO zone(zoneName) VALUES('tableu');
+
+INSERT INTO zone(zoneName) VALUES('foundation');
+INSERT INTO zone(zoneName) VALUES('foundation');
+INSERT INTO zone(zoneName) VALUES('foundation');
+INSERT INTO zone(zoneName) VALUES('foundation');
+
+INSERT INTO card(suitId, cardRank) VALUES(1, 1);
+INSERT INTO card(suitId, cardRank) VALUES(2, 1);
+INSERT INTO card(suitId, cardRank) VALUES(3, 1);
+INSERT INTO card(suitId, cardRank) VALUES(4, 1);
