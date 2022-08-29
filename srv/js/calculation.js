@@ -6,9 +6,9 @@ const li = (...args) => m("li", ...args);
 
 const Types = {
   card: 0,
-  foundation: 1,
-  tableau: 2,
-  talon: 3,
+  talon: 1,
+  foundation: 2,
+  tableau: 3,
 };
 
 const card = (cardId, draggable = true) => ({
